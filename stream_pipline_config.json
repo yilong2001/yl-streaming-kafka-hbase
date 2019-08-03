@@ -1,0 +1,63 @@
+{
+	"sources":[{
+		"type": "kafka",
+		"topic": "topic_name1",
+		"prop":{
+			"type":"file",
+			"path":"/tmp/kfaka_prop_file1"
+		},
+		"format":"avro",
+		"schema":"/tmp/avro_schema_file1",
+		"table":"table1"
+	},
+	{
+		"type": "kafka",
+		"topic": "topic_name2",
+		"prop":{
+			"type":"file",
+			"path":"/tmp/kafka_prop_file2"
+		},
+		"format":"data",
+		"schema":"/tmp/data_schema_file2",
+		"table":"table2"
+	}],
+
+	"piplines":[
+		{
+			"sql":"select table1.`after.uid` as uid, table1.`after.nick` as nick, table1.`after.grade` as grade
+			      ,case when table1.op_type='I' then concat(table1.`after.uid`,'_',table1.`after.nick`) 
+			            when table1.op_type='D' then concat(table1.`before.uid`,'_',table1.`before.nick`) 
+			            when table1.op_type='U' then concat(table1.`after.uid`,'_',table1.`after.nick`) end as rowkey,
+			      'default' as joinkey1, 1 as const_1, table1.`topic.partition` as t_par,
+			      table1.`topic.offset` as t_off, table1.`topic.timestamp` as timestamp, table1.op_type from table1 ",
+			"temp_table":"temp_hbase_write_1",
+			"sinks":[
+				{
+					"type":"HBaseWrite",
+					"dest":"hbase_write_table_1",
+					"join":{
+						"type":"HBaseJoin",
+						"source":"hbase_join_table_1",
+						"joinKeys":[
+							{
+								"lkey":"f:uid",
+								"rkey":"f:uid_1"
+							},
+							{
+								"lkey":"f:grade",
+								"rkey":"f:grade_1"
+							}
+						]
+					},
+					"rowkey":"rowkey"
+				},
+				{
+					"type":"KafkaCommit",
+					"dest":"kakfa_commit_table",
+					"join":null,
+					"rowkey":null
+				}
+			]
+		}
+	]
+}
