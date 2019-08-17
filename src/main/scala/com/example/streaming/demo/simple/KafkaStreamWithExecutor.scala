@@ -13,7 +13,7 @@ import org.apache.avro.specific.SpecificDatumReader
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.streams.KafkaStreams
-import org.apache.kafka.streams.kstream.{ForeachAction, KStreamBuilder, Predicate}
+import org.apache.kafka.streams.kstream.{ForeachAction, Predicate}
 
 import scala.concurrent.ExecutionContext
 
@@ -63,31 +63,31 @@ object KafkaStreamWithExecutor extends App {
   val consumer = new KafkaConsumer[String, Array[Byte]](props)
   consumer.assign(util.Arrays.asList(new TopicPartition(topic, 0)))
 
-  val builder = new KStreamBuilder()
-  val source = builder.stream[String,Array[Byte]](topic)
-
-  source.filter(new Predicate[String,Array[Byte]] {
-    override def test(k: String, v: Array[Byte]): Boolean = {
-      println("********************* : test --------- "+k)
-      //println(getRecord(schema, v))
-      return true
-    }
-  })
-
-  source.foreach(new ForeachAction[String,Array[Byte]] {
-    override def apply(k: String, v: Array[Byte]): Unit = {
-      println("********************* : foreach --------- "+k)
-      println(getRecord(schema, v))
-    }
-  })
+//  val builder = new KStreamBuilder()
+//  val source = builder.stream[String,Array[Byte]](topic)
+//
+//  source.filter(new Predicate[String,Array[Byte]] {
+//    override def test(k: String, v: Array[Byte]): Boolean = {
+//      println("********************* : test --------- "+k)
+//      //println(getRecord(schema, v))
+//      return true
+//    }
+//  })
+//
+//  source.foreach(new ForeachAction[String,Array[Byte]] {
+//    override def apply(k: String, v: Array[Byte]): Unit = {
+//      println("********************* : foreach --------- "+k)
+//      println(getRecord(schema, v))
+//    }
+//  })
 
   val executionContext = ExecutionContext.fromExecutorService(newDaemonThreadScheduledExecutor("debug", 2))
 
-  val streams = new KafkaStreams(builder, props)
+//  val streams = new KafkaStreams(builder, props)
 
   executionContext.execute(new Runnable {
     override def run(): Unit = {
-      streams.start()
+//      streams.start()
     }
   })
 

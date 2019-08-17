@@ -12,11 +12,11 @@
         <!--  -->
         <scala.version>2.11.8</scala.version>
         <scala.tools.version>2.11</scala.tools.version>
-        <spark.version>2.4.0</spark.version>
+        <spark.version>2.4.3</spark.version>
 
-        <kafka.version>0.10.0.0</kafka.version>
+        <kafka.version>2.0.0</kafka.version> <!-- 0.10.2.1 -->
 
-        <streaming.kafka.version>2.4.0</streaming.kafka.version>
+        <streaming.kafka.version>2.4.3</streaming.kafka.version>
 
         <confluent.kafka.serde.version>1.0</confluent.kafka.serde.version>
 
@@ -39,6 +39,26 @@
         <hadoop-two.version>2.7.0</hadoop-two.version>
         <hadoop.version>${hadoop-two.version}</hadoop.version>
     </properties>
+
+
+    <repositories>
+        <repository>
+            <id>icmrepo</id>
+            <name>icmrepo</name>
+            <url>http://maven.icm.edu.pl/artifactory/repo/</url>
+        </repository>
+
+        <repository>
+            <id>mvnrepository1</id>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -198,10 +218,16 @@
             <version>${avro.version}</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.apache.kafka</groupId>-->
+            <!--<artifactId>kafka_2.10</artifactId>-->
+            <!--<version>0.10.2-kafka-2.2.0</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>${kafka.version}</version>
+            <version>${kafka.version}</version> <!-- ${kafka.version} 0.10.2-kafka-2.2.0 -->
         </dependency>
 
         <dependency>

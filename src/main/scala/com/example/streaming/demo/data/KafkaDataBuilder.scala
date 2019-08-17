@@ -27,7 +27,10 @@ object KafkaDataBuilder {
     //props.put("client.id", clientId)
     //if set client.id : throw javax.management.InstanceAlreadyExistsException: kafka.consumer:type=app-info
     props.put("group.id", groupId)
-    props.put("application.id",groupId)
+    props.put("application.id",clientId)
+
+    props.put("security.protocol", "SASL_PLAINTEXT")
+    props.put("sasl.mechanism", "PLAIN")
 
     props
   }
@@ -48,6 +51,9 @@ object KafkaDataBuilder {
     props.put("auto.offset.reset", "earliest")
     props.put("consumer.timeout.ms", "120000")
     props.put("auto.commit.interval.ms", "10000")
+
+    props.put("security.protocol", "SASL_PLAINTEXT")
+    props.put("sasl.mechanism", "PLAIN")
 
     props
   }

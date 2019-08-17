@@ -25,7 +25,7 @@ object StructuredStreamSqlUdf {
     import com.example.streaming.pipeline.RegMacro._
     val regStr = udfMetasToString(udfMetas)
     println(regStr)
-    RegMacro(spark, regStr)
+    //RegMacro(spark, regStr)
   }
 
   def main(args: Array[String]): Unit = {

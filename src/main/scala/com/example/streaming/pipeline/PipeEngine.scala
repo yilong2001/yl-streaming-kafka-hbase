@@ -31,6 +31,7 @@ case class PipeEngine(spark : SparkSession,
     val ss = sparkSession.readStream.format("kafka").options(kmd.props)
       .option("subscribe", kmd.topic)
       .option("startingOffsets", "earliest")
+        .option("group.id", "group.id.12345")
       //.option("startingOffsets", buildStartingOffset(topics))
       .load()
 

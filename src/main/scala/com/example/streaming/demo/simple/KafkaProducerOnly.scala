@@ -33,7 +33,7 @@ object KafkaProducerOnly extends App {
 
     val writer = new SpecificDatumWriter[GenericRecord](schema)
 
-    (1001 to 2000).foreach(i => {
+    (1001 to 20000).foreach(i => {
       sendAvroRecord(topic, producer, recordBuilder(i))
       //Thread.sleep(500)
     })
@@ -41,7 +41,7 @@ object KafkaProducerOnly extends App {
     producer.close();
   }
 
-  val topic = "myrecord2"
+  val topic = "myrecord1"
   val clientid = "myrecord1.client.001"
 
   val props = KafkaDataBuilder.getKafkaProp()
