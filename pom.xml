@@ -30,7 +30,7 @@
 
         <scalactic.version>3.0.0</scalactic.version>
 
-        <netty-all.version>4.1.19.final</netty-all.version>
+        <netty-all.version>4.1.42.Final</netty-all.version>
 
         <avro.version>1.8.2</avro.version>
 
